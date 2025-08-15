@@ -1,60 +1,38 @@
-#include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
-#include <string>
-#include <algorithm>
-#include <cmath>
-#include <climits>
-#include <limits>
-#include <cstring>
-#include <cstdlib>
-#include <ctime>
-#include <stack>
-#include <queue>
-#include <deque>
-#include <list>
-#include <map>
-#include <set>
-#include <unordered_map>
-#include <unordered_set>
-#define ak long long
 using namespace std;
-
-/*
-Question:
-Write a program to find the missing element in an array.
-Assumption: array contains numbers from 1..(n+1) with exactly one missing and size given is n.
-
-Time Complexity:
-method1: O(n)
-method2: O(n)
-
-Space Complexity:
-O(1)
-*/
 
 class Solution
 {
 public:
     void method1()
-    { // brute by summing
+    {
+        // Ask user for number of elements present in the array
         cout << "Enter number of elements (n): ";
         int n;
         cin >> n;
+
+        // Create a vector to store the array elements
         vector<int> arr(n);
+
+        // Input the elements from user
+        cout << "Enter the elements: ";
         for (int i = 0; i < n; i++)
             cin >> arr[i];
-        // int sum = 0;
-        // for (int x : arr) sum += x;
-        // int total = 0;
-        // for (int i = 1; i <= n+1; i++) total += i;
-        // cout << "Missing element is: " << total - sum << endl;
-        int len = arr.size() + 1;
-        int total = len * (len + 1) / 2;
-        int sum = 0;
+
+        // Total number of elements should be n+1 since one is missing
+        int totalCount = n + 1;
+
+        // Calculate sum of numbers from 1 to n+1 using formula
+        int expectedSum = totalCount * (totalCount + 1) / 2;
+
+        // Calculate actual sum of the given elements
+        int actualSum = 0;
         for (int val : arr)
-            sum += val;
-        cout << "Missing element is: " << total - sum << endl;
+            actualSum += val;
+
+        // Missing element = expected sum - actual sum
+        cout << "Missing element is: " << expectedSum - actualSum << endl;
     }
 
     void solve()
@@ -65,7 +43,11 @@ public:
 
 int main()
 {
-    Solution atharv;
-    atharv.solve();
+    // Create object of Solution class
+    Solution obj;
+
+    // Call the solve method
+    obj.solve();
+
     return 0;
 }
