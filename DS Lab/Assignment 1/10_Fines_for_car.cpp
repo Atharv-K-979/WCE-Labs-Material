@@ -51,19 +51,19 @@ public:
         cout << "Total fine: " << fine << endl;
     }
 
-    void method2() { // using count_if (shortcut)
-        cout << "Enter number of plates (n): ";
-        int n; cin >> n;
-        vector<int> arr(n);
-        cout << "Enter plates: ";
-        for (int i = 0; i < n; i++) cin >> arr[i];
-        cout << "Enter day: ";
-        int day; cin >> day;
-        int violations = count_if(arr.begin(), arr.end(), [&](int x){
-            return (day % 2 == 0 && x % 2 != 0) || (day % 2 != 0 && x % 2 == 0);
-        });
-        cout << "Total fine: " << violations * 250 << endl;
-    }
+    // void method2() { // using count_if (shortcut)
+    //     cout << "Enter number of plates (n): ";
+    //     int n; cin >> n;
+    //     vector<int> arr(n);
+    //     cout << "Enter plates: ";
+    //     for (int i = 0; i < n; i++) cin >> arr[i];
+    //     cout << "Enter day: ";
+    //     int day; cin >> day;
+    //     int violations = count_if(arr.begin(), arr.end(), [&](int x){
+    //         return (day % 2 == 0 && x % 2 != 0) || (day % 2 != 0 && x % 2 == 0);
+    //     });
+    //     cout << "Total fine: " << violations * 250 << endl;
+    // }
 
     void solve() {
         method1();
