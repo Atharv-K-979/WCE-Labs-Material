@@ -2,52 +2,34 @@
 #include <vector>
 using namespace std;
 
-class Solution
+int missingNum(vector<int> &arr)
 {
-public:
-    void method1()
+    int n = arr.size() + 1;
+
+    // Iterate from 1 to n and check
+    // if the current number is present
+    for (int i = 1; i <= n; i++)
     {
-        // Ask user for number of elements present in the array
-        cout << "Enter number of elements (n): ";
-        int n;
-        cin >> n;
+        bool found = false;
+        for (int j = 0; j < n - 1; j++)
+        {
+            if (arr[j] == i)
+            {
+                found = true;
+                break;
+            }
+        }
 
-        // Create a vector to store the array elements
-        vector<int> arr(n);
-
-        // Input the elements from user
-        cout << "Enter the elements: ";
-        for (int i = 0; i < n; i++)
-            cin >> arr[i];
-
-        // Total number of elements should be n+1 since one is missing
-        int totalCount = n + 1;
-
-        // Calculate sum of numbers from 1 to n+1 using formula
-        int expectedSum = totalCount * (totalCount + 1) / 2;
-
-        // Calculate actual sum of the given elements
-        int actualSum = 0;
-        for (int val : arr)
-            actualSum += val;
-
-        // Missing element = expected sum - actual sum
-        cout << "Missing element is: " << expectedSum - actualSum << endl;
+        // If the current number is not present
+        if (!found)
+            return i;
     }
-
-    void solve()
-    {
-        method1();
-    }
-};
+    return -1;
+}
 
 int main()
 {
-    // Create object of Solution class
-    Solution obj;
-
-    // Call the solve method
-    obj.solve();
-
+    vector<int> arr = {1, 8, 6, 7, 5, 3, 2};
+    cout << missingNum(arr) << endl;
     return 0;
 }

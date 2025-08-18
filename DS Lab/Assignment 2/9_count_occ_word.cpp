@@ -25,14 +25,11 @@ public:
         map<string, int> wordCount;
         string word;
 
-        // read each word and count frequency
-        while (readFile >> word) {
+        while (readFile >> word) {   // imp keep in mind !!!
             wordCount[word]++;
         }
 
         readFile.close();
-
-        // display word counts
         cout << "Word occurrences:\n";
         for (auto &entry : wordCount) {
             cout << entry.first << " : " << entry.second << "\n";

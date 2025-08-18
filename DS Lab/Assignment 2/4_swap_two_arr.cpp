@@ -56,6 +56,7 @@ public:
             int tempValue = *(pointerArrayOne + index);
             *(pointerArrayOne + index) = *(pointerArrayTwo + index);
             *(pointerArrayTwo + index) = tempValue;
+             /// swap(*pointerArrayOne+index,*pointerArrayTwo+index);  swap is only for the ints,chars,etc.
         }
 
         cout << "First array after swap: ";
