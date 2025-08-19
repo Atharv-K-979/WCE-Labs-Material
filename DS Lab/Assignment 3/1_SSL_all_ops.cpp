@@ -25,7 +25,7 @@ public:
     {
         int data;
         Node *next;
-        Node(int val) : data(val), next(nullptr) {}
+        Node(int val) : data(val), next(nullptr) {}  // different way to write the constructor
     };
 
     Node *head = nullptr;

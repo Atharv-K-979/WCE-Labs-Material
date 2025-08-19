@@ -39,7 +39,6 @@ public:
             mergedFile << line1 << "\n";
             mergedFile << line2 << "\n";
         }
-
         // close all file streams
         readFirst.close();
         readSecond.close();
