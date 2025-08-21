@@ -12,7 +12,7 @@ public:
     void getEmployeeDetails() {
         cout << "Enter Employee ID: ";
         cin >> employeeID;
-        cin.ignore();
+        cin.ignore();       // to ignore prev output
         cout << "Enter Employee Name: ";
         getline(cin, employeeName);
         cout << "Enter Basic Salary: ";
@@ -20,7 +20,7 @@ public:
     }
 
     double calculateHRA() {
-        return 0.10 * basicSalary; // 10% of basic salary
+        return 0.10 * basicSalary; // "  10% of basic salary  "
     }
 
     double calculateDA() {
@@ -32,7 +32,7 @@ public:
     }
 
     void displaySalarySlip() {
-        cout << "\n=== Employee Salary Slip ===\n";
+        cout << "\nEmployee Salary Slip\n";
         cout << "Employee ID: " << employeeID << "\n";
         cout << "Employee Name: " << employeeName << "\n";
         cout << "Basic Salary: " << basicSalary << "\n";
@@ -43,8 +43,8 @@ public:
 };
 
 int main() {
-    EmployeeSalary emp;
-    emp.getEmployeeDetails();
-    emp.displaySalarySlip();
+    EmployeeSalary employee;
+    employee.getEmployeeDetails();
+    employee.displaySalarySlip();
     return 0;
 }

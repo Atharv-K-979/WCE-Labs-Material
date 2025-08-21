@@ -18,7 +18,7 @@ public:
     void displayTemperatures() {
         cout << "Celsius: " << celsius << "\n";
         cout << "Fahrenheit: " << convertToFahrenheit() << "\n";
-    }
+    } 
 };
 
 int main() {

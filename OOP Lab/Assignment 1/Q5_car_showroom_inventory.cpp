@@ -33,7 +33,7 @@ int main() {
         cars[i].inputCarDetails();
     }
 
-    cout << "\n=== Car Inventory ===\n";
+    cout << "\nCar Inventory\n";
     for (int i = 0; i < 3; i++) {
         cout << "\nCar " << i + 1 << ":\n";
         cars[i].displayCarDetails();

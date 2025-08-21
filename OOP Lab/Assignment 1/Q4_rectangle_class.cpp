@@ -1,29 +1,34 @@
 #include <iostream>
 using namespace std;
 
-class Rectangle {
+class Rectangle
+{
 private:
     double length;
     double breadth;
 
 public:
-    void acceptDimensions() {
+    void acceptDimensions()
+    {
         cout << "Enter Length: ";
         cin >> length;
         cout << "Enter Breadth: ";
         cin >> breadth;
     }
 
-    double calculateArea() {
-        return length * breadth;
+    double calculateArea()
+    {
+        return length * breadth; // area = length * breadth
     }
 
-    double calculatePerimeter() {
-        return 2 * (length + breadth);
+    double calculatePerimeter()
+    {
+        return 2 * (length + breadth); // perimeter = 2*(length+breadth)
     }
 };
 
-int main() {
+int main()
+{
     Rectangle rect;
     rect.acceptDimensions();
     cout << "Area: " << rect.calculateArea() << "\n";

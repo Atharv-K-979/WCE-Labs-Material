@@ -20,7 +20,7 @@ public:
     }
 
     void displayBookingDetails() {
-        cout << "\n=== Ticket Details ===\n";
+        cout << "\nTicket Details\n";
         cout << "Movie Name: " << movieName << "\n";
         cout << "Seat Number: " << seatNumber << "\n";
         cout << "Ticket Price: " << ticketPrice << "\n";

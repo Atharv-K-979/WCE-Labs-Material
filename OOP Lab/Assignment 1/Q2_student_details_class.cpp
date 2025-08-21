@@ -5,14 +5,14 @@ using namespace std;
 class Student {
 private:
     int rollNumber;
-    string studentName;
-    float studentMarks;
+    string studentName;  // name
+    float studentMarks;  // marks
 
 public:
     void getDetails() {
         cout << "Enter Roll Number: ";
         cin >> rollNumber;
-        cin.ignore();
+        cin.ignore();    // to clear prev input
         cout << "Enter Student Name: ";
         getline(cin, studentName);
         cout << "Enter Marks: ";
@@ -28,10 +28,31 @@ public:
 
 int main() {
     Student student1;
-    cout << "=== Enter Student Details ===\n";
-    student1.getDetails();
+    int choice;
+    bool detailsEntered = false;   // to check if details are entered
 
-    cout << "\n=== Student Details ===\n";
-    student1.displayDetails();
-    return 0;
+    while (true) {
+        cout << "\nSTUDENT MENU\n";
+        cout << "1. Enter Student Details\n";
+        cout << "2. Display Student Details\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        if(choice > 2) return 0;
+        switch (choice) {
+        case 1:
+            student1.getDetails();
+            detailsEntered = true;
+            break;
+
+        case 2:
+            if (detailsEntered) {
+                cout << "\nStudent Details:\n";
+                student1.displayDetails();
+            } else {
+                cout << "Please enter details first!\n";
+            }
+            break;
+        }
+    }
 }

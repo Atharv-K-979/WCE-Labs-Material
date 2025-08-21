@@ -1,0 +1,6 @@
+This is the first line.
+This is the second line.
+C++ constructors and destructors demo.
+This is the first line.
+This is the second line.
+C++ program using FILE operations.

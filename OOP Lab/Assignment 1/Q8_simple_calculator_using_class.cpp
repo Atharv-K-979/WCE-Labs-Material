@@ -1,13 +1,15 @@
 #include <iostream>
 using namespace std;
 
-class Calculator {
+class Calculator
+{
 private:
     double number1;
     double number2;
 
 public:
-    void inputNumbers() {
+    void inputNumbers()
+    {
         cout << "Enter first number: ";
         cin >> number1;
         cout << "Enter second number: ";
@@ -17,31 +19,52 @@ public:
     double addNumbers() { return number1 + number2; }
     double subtractNumbers() { return number1 - number2; }
     double multiplyNumbers() { return number1 * number2; }
-    double divideNumbers() { 
-        if (number2 != 0) return number1 / number2; 
-        else {
+    double divideNumbers()
+    {
+        if (number2 != 0)
+            return number1 / number2;
+        else
+        {
             cout << "Error: Division by zero!\n";
             return 0;
         }
     }
 };
 
-int main() {
+int main()
+{
     Calculator calc;
     int choice;
 
-    calc.inputNumbers();
-    cout << "\n=== Menu ===\n";
-    cout << "1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n";
-    cout << "Enter your choice: ";
-    cin >> choice;
-
-    switch (choice) {
-        case 1: cout << "Result: " << calc.addNumbers(); break;
-        case 2: cout << "Result: " << calc.subtractNumbers(); break;
-        case 3: cout << "Result: " << calc.multiplyNumbers(); break;
-        case 4: cout << "Result: " << calc.divideNumbers(); break;
-        default: cout << "Invalid choice!";
+    while (true)
+    {
+        cout << "\nMenu\n";
+        cout << "1. Enter Numbers\n";
+        cout << "2. Addition\n";
+        cout << "3. Subtraction\n";
+        cout << "4. Multiplication\n";
+        cout << "5. Division\n";
+        cout << "6. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        if(choice > 5 )return 0;
+        switch (choice)
+        {
+        case 1:
+            calc.inputNumbers();
+            break;
+        case 2:
+            cout << "Result: " << calc.addNumbers() << endl;
+            break;
+        case 3:
+            cout << "Result: " << calc.subtractNumbers() << endl;
+            break;
+        case 4:
+            cout << "Result: " << calc.multiplyNumbers() << endl;
+            break;
+        case 5:
+            cout << "Result: " << calc.divideNumbers() << endl;
+            break;
+        }
     }
-    return 0;
 }
