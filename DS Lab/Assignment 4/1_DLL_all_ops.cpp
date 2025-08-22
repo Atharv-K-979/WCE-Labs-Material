@@ -41,7 +41,6 @@ public:
     };
 
     Node *head = nullptr;
-
     void insertAtBeginning(int val)
     {
         Node *newNode = new Node(val);
@@ -174,7 +173,6 @@ public:
             cout << "8. Exit\n";
             cout << "Enter choice: ";
             cin >> choice;
-
             switch (choice)
             {
             case 1:
