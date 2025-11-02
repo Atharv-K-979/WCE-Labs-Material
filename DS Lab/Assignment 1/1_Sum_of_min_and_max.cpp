@@ -22,7 +22,6 @@ using namespace std;
 /*
 Question:
 Given an array of integers, find the sum of the smallest and largest elements.
-
 Time Complexity:
 method1: O(n)
 method2: O(n)
@@ -30,7 +29,6 @@ method2: O(n)
 Space Complexity:
 O(1)
 */
-
 class Solution
 {
 public:
@@ -42,7 +40,6 @@ public:
         vector<int> arr(n);
         for (int i = 0; i < n; i++)
             cin >> arr[i];
-
         int mn = arr[0], mx = arr[0];
         for (int i = 1; i < n; i++)
         {
@@ -53,7 +50,6 @@ public:
         }
         cout << "Sum of Min and Max element is: " << mn + mx << endl;
     }
-
     void method2()
     { // Using STL
         cout << "Enter Array Size: ";
@@ -62,7 +58,6 @@ public:
         vector<int> arr(n);
         for (int i = 0; i < n; i++)
             cin >> arr[i];
-
         int mn = *min_element(arr.begin(), arr.end());
         int mx = *max_element(arr.begin(), arr.end());
         cout << "Sum of Min and Max element is: " << mn + mx << endl;
