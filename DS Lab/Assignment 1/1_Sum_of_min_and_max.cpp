@@ -19,7 +19,6 @@
 #include <unordered_set>
 #define ak long long
 using namespace std;
-
 /*
 Question:
 Given an array of integers, find the sum of the smallest and largest elements.
