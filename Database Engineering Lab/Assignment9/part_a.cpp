@@ -85,7 +85,7 @@ int main() {
     tree.traverse();
 
     tree.search(15);
-    tree.search(100);
+    tree.search(10);
 
     return 0;
 }
