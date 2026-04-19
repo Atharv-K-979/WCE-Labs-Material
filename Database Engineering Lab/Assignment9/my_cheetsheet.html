@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL Commands Complete Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: #0a0a0a;
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: #2a2a2a;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box input::placeholder {
+            color: #999;
+        }
+
+        .search-box input:focus {
+            background: #333;
+            border-color: #555;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: #252525;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 50px;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 10px 18px;
+            border: 1px solid #444;
+            background: #252525;
+            color: #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #333;
+            border-color: #666;
+        }
+
+        .nav-btn.active {
+            background: #444;
+            border-color: #666;
+            color: #fff;
+        }
+
+        .sections-container {
+            display: none;
+        }
+
+        .sections-container.active {
+            display: block;
+        }
+
+        .section-card {
+            background: #252525;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333;
+            color: #fff;
+        }
+
+        .command-block {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #1f1f1f;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        .command-block:hover {
+            border-color: #555;
+            background: #2a2a2a;
+        }
+
+        .command-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #bbb;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .command-code {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 3px;
+            padding: 14px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+            color: #00d4aa;
+            font-size: 12px;
+            line-height: 1.6;
+            overflow-x: auto;
+            word-break: break-word;
+        }
+
+        .command-code::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .command-code::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .command-code::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 3px;
+        }
+
+        .command-code::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .command-description {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .command-example {
+            font-size: 12px;
+            color: #777;
+            padding: 8px 12px;
+            background: #1a1a1a;
+            border-left: 2px solid #555;
+            margin-top: 10px;
+        }
+
+        .command-example-label {
+            color: #888;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .command-example-code {
+            color: #999;
+            font-family: 'Courier New', monospace;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top:hover {
+            background: #444;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #333;
+            color: #888;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            margin: 8px 0;
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #333;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            font-size: 13px;
+            border: 1px solid #555;
+        }
+
+        .notification.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .subsection {
+            margin-bottom: 35px;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ccc;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-title {
+                font-size: 18px;
+            }
+
+            .search-box {
+                width: 150px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .nav-buttons {
+                gap: 6px;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-title">MySQL Commands Reference</div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search commands...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>MySQL Commands - Complete Professional Reference</h1>
+            <p>Comprehensive guide with all commands and advanced scenarios for interviews and production use</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showSection('all', event)">All Commands</button>
+            <button class="nav-btn" onclick="showSection('database', event)">Database</button>
+            <button class="nav-btn" onclick="showSection('table', event)">Tables</button>
+            <button class="nav-btn" onclick="showSection('select', event)">SELECT</button>
+            <button class="nav-btn" onclick="showSection('insert', event)">INSERT</button>
+            <button class="nav-btn" onclick="showSection('update', event)">UPDATE</button>
+            <button class="nav-btn" onclick="showSection('delete', event)">DELETE</button>
+            <button class="nav-btn" onclick="showSection('filter', event)">Filtering</button>
+            <button class="nav-btn" onclick="showSection('joins', event)">JOINs</button>
+            <button class="nav-btn" onclick="showSection('aggregate', event)">Aggregate</button>
+            <button class="nav-btn" onclick="showSection('index', event)">Indexes</button>
+            <button class="nav-btn" onclick="showSection('views', event)">Views</button>
+            <button class="nav-btn" onclick="showSection('procedures', event)">Procedures</button>
+            <button class="nav-btn" onclick="showSection('triggers', event)">Triggers</button>
+            <button class="nav-btn" onclick="showSection('transactions', event)">Transactions</button>
+            <button class="nav-btn" onclick="showSection('users', event)">Users</button>
+            <button class="nav-btn" onclick="showSection('functions', event)">Functions</button>
+            <button class="nav-btn" onclick="showSection('advanced', event)">Advanced</button>
+        </div>
+
+        <!-- ALL COMMANDS -->
+        <div id="all" class="sections-container active">
+            <div class="section-card">
+                <div class="section-title">Database Operations</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Basic Database Commands</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Show All Databases</div>
+                        <div class="command-code">SHOW DATABASES;</div>
+                        <div class="command-description">Display list of all databases in MySQL server.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create Database</div>
+                        <div class="command-code">CREATE DATABASE &lt;database_name&gt;;</div>
+                        <div class="command-description">Create a new database.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create Database If Not Exists</div>
+                        <div class="command-code">CREATE DATABASE IF NOT EXISTS &lt;database_name&gt;;</div>
+                        <div class="command-description">Create database only if it doesn't already exist.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create Database With Charset</div>
+                        <div class="command-code">CREATE DATABASE &lt;db_name&gt; CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</div>
+                        <div class="command-description">Create database with specific character set and collation for Unicode support.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Use Database</div>
+                        <div class="command-code">USE &lt;database_name&gt;;</div>
+                        <div class="command-description">Select database for operations.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Show Current Database</div>
+                        <div class="command-code">SELECT DATABASE();</div>
+                        <div class="command-description">Display the currently selected database.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Drop Database</div>
+                        <div class="command-code">DROP DATABASE &lt;database_name&gt;;</div>
+                        <div class="command-description">Delete database and all its contents permanently.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Drop Database If Exists</div>
+                        <div class="command-code">DROP DATABASE IF EXISTS &lt;database_name&gt;;</div>
+                        <div class="command-description">Delete database only if it exists, preventing errors.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Table Operations</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Creating Tables</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Create Basic Table</div>
+                        <div class="command-code">CREATE TABLE &lt;table_name&gt; (column1 datatype, column2 datatype);</div>
+                        <div class="command-description">Create a table with basic column definitions.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create Table With Primary Key</div>
+                        <div class="command-code">CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(100));</div>
+                        <div class="command-description">Create table with primary key constraint for unique identification.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create Table With Auto Increment</div>
+                        <div class="command-code">CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100));</div>
+                        <div class="command-description">Create table with auto-incrementing primary key.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create Table With Constraints</div>
+                        <div class="command-code">CREATE TABLE orders (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, amount DECIMAL(10,2) DEFAULT 0.00, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);</div>
+                        <div class="command-description">Create table with NOT NULL, DEFAULT, and timestamp constraints.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create Table From Another Table</div>
+                        <div class="command-code">CREATE TABLE new_table AS SELECT * FROM existing_table;</div>
+                        <div class="command-description">Create new table with data copied from existing table.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create Table If Not Exists</div>
+                        <div class="command-code">CREATE TABLE IF NOT EXISTS &lt;table_name&gt; (...);</div>
+                        <div class="command-description">Create table only if it doesn't already exist.</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Viewing Tables</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Show All Tables</div>
+                        <div class="command-code">SHOW TABLES;</div>
+                        <div class="command-description">Display list of all tables in current database.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Describe Table Structure</div>
+                        <div class="command-code">DESCRIBE &lt;table_name&gt;;</div>
+                        <div class="command-description">Show table columns with data types and constraints.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Show Table Structure (Detailed)</div>
+                        <div class="command-code">SHOW CREATE TABLE &lt;table_name&gt;;</div>
+                        <div class="command-description">Display full CREATE TABLE statement with all definitions.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Show Table Columns</div>
+                        <div class="command-code">SHOW COLUMNS FROM &lt;table_name&gt;;</div>
+                        <div class="command-description">List all columns with detailed information.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Show Table Status</div>
+                        <div class="command-code">SHOW TABLE STATUS WHERE Name = '&lt;table_name&gt;';</div>
+                        <div class="command-description">Show table statistics like row count and data size.</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Modifying Tables</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Rename Table</div>
+                        <div class="command-code">RENAME TABLE &lt;old_name&gt; TO &lt;new_name&gt;;</div>
+                        <div class="command-description">Rename a table.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Add Column</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; ADD &lt;column_name&gt; &lt;datatype&gt;;</div>
+                        <div class="command-description">Add new column to existing table.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Add Column After Specific Column</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; ADD &lt;column_name&gt; &lt;datatype&gt; AFTER &lt;existing_column&gt;;</div>
+                        <div class="command-description">Add column at specific position after existing column.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Add Column At First Position</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; ADD &lt;column_name&gt; &lt;datatype&gt; FIRST;</div>
+                        <div class="command-description">Add column as first column in table.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Modify Column Datatype</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; MODIFY &lt;column_name&gt; &lt;new_datatype&gt;;</div>
+                        <div class="command-description">Change data type of existing column.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Change Column Name And Type</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; CHANGE &lt;old_name&gt; &lt;new_name&gt; &lt;datatype&gt;;</div>
+                        <div class="command-description">Rename column and change its data type.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Drop Column</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; DROP COLUMN &lt;column_name&gt;;</div>
+                        <div class="command-description">Remove column from table.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Add Primary Key</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; ADD PRIMARY KEY (&lt;column_name&gt;);</div>
+                        <div class="command-description">Add primary key constraint to column.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Drop Primary Key</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; DROP PRIMARY KEY;</div>
+                        <div class="command-description">Remove primary key constraint from table.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Add Foreign Key</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; ADD FOREIGN KEY (&lt;column&gt;) REFERENCES &lt;other_table&gt;(&lt;column&gt;);</div>
+                        <div class="command-description">Add foreign key constraint to maintain referential integrity.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Drop Foreign Key</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; DROP FOREIGN KEY &lt;constraint_name&gt;;</div>
+                        <div class="command-description">Remove foreign key constraint.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Add Unique Constraint</div>
+                        <div class="command-code">ALTER TABLE &lt;table_name&gt; ADD UNIQUE (&lt;column_name&gt;);</div>
+                        <div class="command-description">Add unique constraint to ensure no duplicate values.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Drop Table</div>
+                        <div class="command-code">DROP TABLE &lt;table_name&gt;;</div>
+                        <div class="command-description">Delete table and all its data permanently.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Drop Table If Exists</div>
+                        <div class="command-code">DROP TABLE IF EXISTS &lt;table_name&gt;;</div>
+                        <div class="command-description">Drop table only if it exists, preventing errors.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Truncate Table</div>
+                        <div class="command-code">TRUNCATE TABLE &lt;table_name&gt;;</div>
+                        <div class="command-description">Delete all data from table but keep table structure (faster than DELETE).</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">SELECT - Data Retrieval</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Basic SELECT</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Display All Data</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt;;</div>
+                        <div class="command-description">Retrieve all columns and rows from table.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Display Specific Columns</div>
+                        <div class="command-code">SELECT &lt;col1&gt;, &lt;col2&gt; FROM &lt;table_name&gt;;</div>
+                        <div class="command-description">Retrieve only specified columns from table.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Display Distinct Values</div>
+                        <div class="command-code">SELECT DISTINCT &lt;column_name&gt; FROM &lt;table_name&gt;;</div>
+                        <div class="command-description">Retrieve unique values from column, removing duplicates.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Count Total Rows</div>
+                        <div class="command-code">SELECT COUNT(*) FROM &lt;table_name&gt;;</div>
+                        <div class="command-description">Get total number of rows in table.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Limit Results</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; LIMIT 10;</div>
+                        <div class="command-description">Retrieve only first 10 rows.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Limit With Offset (Pagination)</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; LIMIT 10 OFFSET 20;</div>
+                        <div class="command-description">Retrieve 10 rows starting from row 21 (skip first 20).</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Select With Column Alias</div>
+                        <div class="command-code">SELECT &lt;column_name&gt; AS &lt;alias_name&gt; FROM &lt;table_name&gt;;</div>
+                        <div class="command-description">Display column with different name in result set.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Select From Multiple Tables</div>
+                        <div class="command-code">SELECT * FROM &lt;table1&gt;, &lt;table2&gt;;</div>
+                        <div class="command-description">Retrieve data from multiple tables (creates cartesian product).</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Advanced SELECT Queries</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Find Nth Largest Record</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; ORDER BY &lt;column&gt; DESC LIMIT 1 OFFSET 1;</div>
+                        <div class="command-description">Find 2nd largest value (OFFSET 1 for 2nd, OFFSET 2 for 3rd, etc).</div>
+                        <div class="command-example">
+                            <div class="command-example-label">Example: Find 2nd highest salary</div>
+                            <div class="command-example-code">SELECT * FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 1;</div>
+                        </div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Find Nth Largest Using DENSE_RANK</div>
+                        <div class="command-code">SELECT * FROM (SELECT *, DENSE_RANK() OVER (ORDER BY &lt;column&gt; DESC) as rank FROM &lt;table&gt;) AS ranked WHERE rank = 2;</div>
+                        <div class="command-description">Find Nth largest value using window function (handles ties).</div>
+                        <div class="command-example">
+                            <div class="command-example-label">Example: Find 2nd highest salary with window function</div>
+                            <div class="command-example-code">SELECT * FROM (SELECT *, DENSE_RANK() OVER (ORDER BY salary DESC) as rank FROM employees) AS ranked WHERE rank = 2;</div>
+                        </div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Find Nth Largest Using Subquery</div>
+                        <div class="command-code">SELECT MAX(&lt;column&gt;) FROM &lt;table&gt; WHERE &lt;column&gt; NOT IN (SELECT DISTINCT &lt;column&gt; FROM &lt;table&gt; ORDER BY &lt;column&gt; DESC LIMIT 1);</div>
+                        <div class="command-description">Find 2nd largest by excluding the 1st largest, then finding max of remaining.</div>
+                        <div class="command-example">
+                            <div class="command-example-label">Example: Find 2nd highest salary using subquery</div>
+                            <div class="command-example-code">SELECT MAX(salary) FROM employees WHERE salary NOT IN (SELECT MAX(salary) FROM employees);</div>
+                        </div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Get Top 3 Records By Category</div>
+                        <div class="command-code">SELECT * FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY &lt;category&gt; ORDER BY &lt;column&gt; DESC) as rank FROM &lt;table&gt;) AS ranked WHERE rank <= 3;</div>
+                        <div class="command-description">Get top 3 records within each category using window function.</div>
+                        <div class="command-example">
+                            <div class="command-example-label">Example: Top 3 products by category ordered by price</div>
+                            <div class="command-example-code">SELECT * FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY category ORDER BY price DESC) as rank FROM products) AS ranked WHERE rank <= 3;</div>
+                        </div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Concatenate Columns</div>
+                        <div class="command-code">SELECT CONCAT(&lt;col1&gt;, ' ', &lt;col2&gt;) AS full_name FROM &lt;table&gt;;</div>
+                        <div class="command-description">Combine multiple columns into single column.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">INSERT - Data Insertion</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Insert Single Row</div>
+                    <div class="command-code">INSERT INTO &lt;table_name&gt; (col1, col2) VALUES (val1, val2);</div>
+                    <div class="command-description">Insert one row with specified column values.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Insert Without Specifying Columns</div>
+                    <div class="command-code">INSERT INTO &lt;table_name&gt; VALUES (val1, val2, val3);</div>
+                    <div class="command-description">Insert row with values in same order as table columns.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Insert Multiple Rows</div>
+                    <div class="command-code">INSERT INTO &lt;table_name&gt; (col1, col2) VALUES (val1, val2), (val3, val4), (val5, val6);</div>
+                    <div class="command-description">Insert multiple rows in single statement.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Insert From Another Table</div>
+                    <div class="command-code">INSERT INTO &lt;table1&gt; (col1, col2) SELECT col1, col2 FROM &lt;table2&gt;;</div>
+                    <div class="command-description">Copy data from one table to another.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Insert Or Ignore Duplicates</div>
+                    <div class="command-code">INSERT IGNORE INTO &lt;table_name&gt; (col1, col2) VALUES (val1, val2);</div>
+                    <div class="command-description">Insert row but ignore if unique constraint violated.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Insert Or Update On Duplicate</div>
+                    <div class="command-code">INSERT INTO &lt;table_name&gt; (id, col1) VALUES (1, 'value') ON DUPLICATE KEY UPDATE col1='new_value';</div>
+                    <div class="command-description">Insert row or update if primary key already exists.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">UPDATE - Data Modification</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Update All Rows</div>
+                    <div class="command-code">UPDATE &lt;table_name&gt; SET &lt;column&gt; = &lt;value&gt;;</div>
+                    <div class="command-description">Update column value for all rows (use with caution).</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Update With Condition</div>
+                    <div class="command-code">UPDATE &lt;table_name&gt; SET &lt;col1&gt; = &lt;val1&gt; WHERE &lt;condition&gt;;</div>
+                    <div class="command-description">Update rows matching WHERE condition.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Update Multiple Columns</div>
+                    <div class="command-code">UPDATE &lt;table_name&gt; SET col1 = val1, col2 = val2 WHERE &lt;condition&gt;;</div>
+                    <div class="command-description">Update multiple columns in same statement.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Update With Calculation</div>
+                    <div class="command-code">UPDATE &lt;table_name&gt; SET price = price * 1.1 WHERE category = 'electronics';</div>
+                    <div class="command-description">Update column by performing calculation on its current value.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Update From Another Table</div>
+                    <div class="command-code">UPDATE table1 t1 JOIN table2 t2 ON t1.id = t2.id SET t1.column = t2.column;</div>
+                    <div class="command-description">Update one table with values from another table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Update With Limit</div>
+                    <div class="command-code">UPDATE &lt;table_name&gt; SET &lt;column&gt; = &lt;value&gt; LIMIT 10;</div>
+                    <div class="command-description">Update only first 10 matching rows.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">DELETE - Data Removal</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Delete All Rows</div>
+                    <div class="command-code">DELETE FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Delete all rows from table (use with caution).</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Delete With Condition</div>
+                    <div class="command-code">DELETE FROM &lt;table_name&gt; WHERE &lt;condition&gt;;</div>
+                    <div class="command-description">Delete rows matching WHERE condition.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Delete With Limit</div>
+                    <div class="command-code">DELETE FROM &lt;table_name&gt; WHERE &lt;condition&gt; LIMIT 10;</div>
+                    <div class="command-description">Delete only first 10 matching rows.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Delete Using Subquery</div>
+                    <div class="command-code">DELETE FROM &lt;table_name&gt; WHERE id IN (SELECT id FROM &lt;another_table&gt;);</div>
+                    <div class="command-description">Delete rows based on result of subquery.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Delete From Multiple Tables</div>
+                    <div class="command-code">DELETE t1, t2 FROM table1 t1 JOIN table2 t2 ON t1.id = t2.id WHERE &lt;condition&gt;;</div>
+                    <div class="command-description">Delete rows from multiple tables in single statement.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Filtering And Sorting</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">WHERE Clause</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Basic WHERE</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE &lt;column&gt; = &lt;value&gt;;</div>
+                        <div class="command-description">Filter rows where column equals specific value.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With AND</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE col1 = val1 AND col2 = val2;</div>
+                        <div class="command-description">Filter rows where both conditions are true.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With OR</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE col1 = val1 OR col2 = val2;</div>
+                        <div class="command-description">Filter rows where either condition is true.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With NOT</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE NOT &lt;column&gt; = &lt;value&gt;;</div>
+                        <div class="command-description">Filter rows where condition is false.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With IN</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE &lt;column&gt; IN (val1, val2, val3);</div>
+                        <div class="command-description">Filter rows where column value matches any in list.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With NOT IN</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE &lt;column&gt; NOT IN (val1, val2);</div>
+                        <div class="command-description">Filter rows where column value doesn't match any in list.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With BETWEEN</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE &lt;column&gt; BETWEEN val1 AND val2;</div>
+                        <div class="command-description">Filter rows where column value is within range (inclusive).</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With LIKE</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE &lt;column&gt; LIKE 'pattern%';</div>
+                        <div class="command-description">Filter rows using pattern matching with LIKE operator.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With Wildcards - Starts With</div>
+                        <div class="command-code">SELECT * FROM users WHERE name LIKE 'A%';</div>
+                        <div class="command-description">Find names starting with letter A.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With Wildcards - Ends With</div>
+                        <div class="command-code">SELECT * FROM users WHERE name LIKE '%son';</div>
+                        <div class="command-description">Find names ending with 'son'.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With Wildcards - Contains</div>
+                        <div class="command-code">SELECT * FROM users WHERE name LIKE '%and%';</div>
+                        <div class="command-description">Find names containing 'and' anywhere.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE IS NULL</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE &lt;column&gt; IS NULL;</div>
+                        <div class="command-description">Filter rows where column value is NULL.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE IS NOT NULL</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE &lt;column&gt; IS NOT NULL;</div>
+                        <div class="command-description">Filter rows where column value is not NULL.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">WHERE With Comparison Operators</div>
+                        <div class="command-code">SELECT * FROM products WHERE price > 100 AND stock < 50;</div>
+                        <div class="command-description">Filter using comparison operators (>, <, >=, <=, !=).</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">ORDER BY</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Sort Ascending</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; ORDER BY &lt;column&gt; ASC;</div>
+                        <div class="command-description">Sort results in ascending order (A to Z, 0 to 9).</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Sort Descending</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; ORDER BY &lt;column&gt; DESC;</div>
+                        <div class="command-description">Sort results in descending order (Z to A, 9 to 0).</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Sort By Multiple Columns</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; ORDER BY col1 ASC, col2 DESC;</div>
+                        <div class="command-description">Sort by first column ascending, then by second descending.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Sort With Condition</div>
+                        <div class="command-code">SELECT * FROM &lt;table_name&gt; WHERE &lt;condition&gt; ORDER BY &lt;column&gt; DESC;</div>
+                        <div class="command-description">Filter rows first, then sort results.</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">GROUP BY</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Group By Single Column</div>
+                        <div class="command-code">SELECT &lt;column&gt;, COUNT(*) FROM &lt;table_name&gt; GROUP BY &lt;column&gt;;</div>
+                        <div class="command-description">Group rows by column and count rows in each group.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Group By Multiple Columns</div>
+                        <div class="command-code">SELECT col1, col2, COUNT(*) FROM &lt;table_name&gt; GROUP BY col1, col2;</div>
+                        <div class="command-description">Group rows by multiple columns and count.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Group With HAVING</div>
+                        <div class="command-code">SELECT &lt;column&gt;, COUNT(*) FROM &lt;table_name&gt; GROUP BY &lt;column&gt; HAVING COUNT(*) > 5;</div>
+                        <div class="command-description">Group rows and filter groups where count exceeds 5.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Group With WHERE And HAVING</div>
+                        <div class="command-code">SELECT category, AVG(price) FROM products WHERE stock > 0 GROUP BY category HAVING AVG(price) > 100;</div>
+                        <div class="command-description">Filter rows before grouping, then filter groups after aggregation.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Aggregate Functions</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Count Rows</div>
+                    <div class="command-code">SELECT COUNT(*) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Get total number of rows in table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Count Specific Column</div>
+                    <div class="command-code">SELECT COUNT(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Count non-NULL values in specific column.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Count Distinct Values</div>
+                    <div class="command-code">SELECT COUNT(DISTINCT &lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Count unique values in column.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Sum Of Values</div>
+                    <div class="command-code">SELECT SUM(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Calculate sum of all values in numeric column.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Average Value</div>
+                    <div class="command-code">SELECT AVG(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Calculate average of all values in column.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Minimum Value</div>
+                    <div class="command-code">SELECT MIN(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Find minimum value in column.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Maximum Value</div>
+                    <div class="command-code">SELECT MAX(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Find maximum value in column.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Group Concat</div>
+                    <div class="command-code">SELECT GROUP_CONCAT(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Concatenate all values in column into single string.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Standard Deviation</div>
+                    <div class="command-code">SELECT STD(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Calculate standard deviation of values.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Variance</div>
+                    <div class="command-code">SELECT VARIANCE(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Calculate variance of values.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">JOINs - Combining Tables</div>
+                
+                <div class="command-block">
+                    <div class="command-name">INNER JOIN</div>
+                    <div class="command-code">SELECT * FROM table1 INNER JOIN table2 ON table1.id = table2.table1_id;</div>
+                    <div class="command-description">Return only matching rows from both tables.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">LEFT JOIN</div>
+                    <div class="command-code">SELECT * FROM table1 LEFT JOIN table2 ON table1.id = table2.table1_id;</div>
+                    <div class="command-description">Return all rows from left table, matching rows from right table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">RIGHT JOIN</div>
+                    <div class="command-code">SELECT * FROM table1 RIGHT JOIN table2 ON table1.id = table2.table1_id;</div>
+                    <div class="command-description">Return all rows from right table, matching rows from left table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">FULL OUTER JOIN</div>
+                    <div class="command-code">SELECT * FROM table1 LEFT JOIN table2 ON table1.id = table2.id UNION SELECT * FROM table1 RIGHT JOIN table2 ON table1.id = table2.id;</div>
+                    <div class="command-description">Return all rows from both tables with matches where possible.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">CROSS JOIN</div>
+                    <div class="command-code">SELECT * FROM table1 CROSS JOIN table2;</div>
+                    <div class="command-description">Cartesian product - combine every row from table1 with every row from table2.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">SELF JOIN</div>
+                    <div class="command-code">SELECT a.name, b.name FROM employees a, employees b WHERE a.manager_id = b.id;</div>
+                    <div class="command-description">Join table to itself to compare rows within same table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Multiple JOINs</div>
+                    <div class="command-code">SELECT * FROM table1 JOIN table2 ON table1.id = table2.t1_id JOIN table3 ON table2.id = table3.t2_id;</div>
+                    <div class="command-description">Join more than two tables in single query.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">JOIN With WHERE</div>
+                    <div class="command-code">SELECT * FROM users u JOIN orders o ON u.id = o.user_id WHERE u.status = 'active';</div>
+                    <div class="command-description">Join tables and filter results using WHERE clause.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Indexes</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Create Index</div>
+                    <div class="command-code">CREATE INDEX &lt;index_name&gt; ON &lt;table_name&gt; (&lt;column&gt;);</div>
+                    <div class="command-description">Create index on single column to improve query performance.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create Unique Index</div>
+                    <div class="command-code">CREATE UNIQUE INDEX &lt;index_name&gt; ON &lt;table_name&gt; (&lt;column&gt;);</div>
+                    <div class="command-description">Create index ensuring all indexed values are unique.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create Composite Index</div>
+                    <div class="command-code">CREATE INDEX &lt;index_name&gt; ON &lt;table_name&gt; (col1, col2);</div>
+                    <div class="command-description">Create index on multiple columns for queries filtering on both.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create Fulltext Index</div>
+                    <div class="command-code">CREATE FULLTEXT INDEX &lt;index_name&gt; ON &lt;table_name&gt; (&lt;column&gt;);</div>
+                    <div class="command-description">Create index for full-text search capabilities.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Indexes</div>
+                    <div class="command-code">SHOW INDEX FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Display all indexes on specified table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Drop Index</div>
+                    <div class="command-code">DROP INDEX &lt;index_name&gt; ON &lt;table_name&gt;;</div>
+                    <div class="command-description">Remove index from table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Add Index Using ALTER</div>
+                    <div class="command-code">ALTER TABLE &lt;table_name&gt; ADD INDEX &lt;index_name&gt; (&lt;column&gt;);</div>
+                    <div class="command-description">Add index to existing table using ALTER TABLE.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Add Unique Using ALTER</div>
+                    <div class="command-code">ALTER TABLE &lt;table_name&gt; ADD UNIQUE &lt;index_name&gt; (&lt;column&gt;);</div>
+                    <div class="command-description">Add unique index using ALTER TABLE.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Views</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Create View</div>
+                    <div class="command-code">CREATE VIEW &lt;view_name&gt; AS SELECT col1, col2 FROM &lt;table_name&gt; WHERE &lt;condition&gt;;</div>
+                    <div class="command-description">Create virtual table based on SELECT query.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create Or Replace View</div>
+                    <div class="command-code">CREATE OR REPLACE VIEW &lt;view_name&gt; AS SELECT * FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Create view or update if it already exists.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show All Views</div>
+                    <div class="command-code">SHOW FULL TABLES WHERE Table_type = 'VIEW';</div>
+                    <div class="command-description">List all views in current database.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Select From View</div>
+                    <div class="command-code">SELECT * FROM &lt;view_name&gt;;</div>
+                    <div class="command-description">Query view like regular table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Drop View</div>
+                    <div class="command-code">DROP VIEW &lt;view_name&gt;;</div>
+                    <div class="command-description">Delete view.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Drop View If Exists</div>
+                    <div class="command-code">DROP VIEW IF EXISTS &lt;view_name&gt;;</div>
+                    <div class="command-description">Drop view only if it exists.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show View Definition</div>
+                    <div class="command-code">SHOW CREATE VIEW &lt;view_name&gt;;</div>
+                    <div class="command-description">Display CREATE VIEW statement for specified view.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Alter View</div>
+                    <div class="command-code">ALTER VIEW &lt;view_name&gt; AS SELECT col1, col2 FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Modify view definition.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Stored Procedures</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Create Stored Procedure</div>
+                    <div class="command-code">CREATE PROCEDURE proc_name() BEGIN SELECT * FROM users; END;</div>
+                    <div class="command-description">Create reusable stored procedure with SQL statements.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create Procedure With Parameters</div>
+                    <div class="command-code">CREATE PROCEDURE GetUser(IN userId INT) BEGIN SELECT * FROM users WHERE id = userId; END;</div>
+                    <div class="command-description">Create procedure accepting input parameters.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create Procedure With OUT Parameter</div>
+                    <div class="command-code">CREATE PROCEDURE CountUsers(OUT total INT) BEGIN SELECT COUNT(*) INTO total FROM users; END;</div>
+                    <div class="command-description">Create procedure returning output parameter.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Call Stored Procedure</div>
+                    <div class="command-code">CALL proc_name();</div>
+                    <div class="command-description">Execute stored procedure.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Call With Parameters</div>
+                    <div class="command-code">CALL GetUser(5);</div>
+                    <div class="command-description">Execute procedure with parameters.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show All Procedures</div>
+                    <div class="command-code">SHOW PROCEDURE STATUS WHERE Db = '&lt;database_name&gt;';</div>
+                    <div class="command-description">List all procedures in specified database.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Procedure Definition</div>
+                    <div class="command-code">SHOW CREATE PROCEDURE &lt;proc_name&gt;;</div>
+                    <div class="command-description">Display CREATE PROCEDURE statement.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Drop Procedure</div>
+                    <div class="command-code">DROP PROCEDURE &lt;proc_name&gt;;</div>
+                    <div class="command-description">Delete procedure.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Drop If Exists</div>
+                    <div class="command-code">DROP PROCEDURE IF EXISTS &lt;proc_name&gt;;</div>
+                    <div class="command-description">Drop procedure only if it exists.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Triggers</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Create BEFORE INSERT Trigger</div>
+                    <div class="command-code">CREATE TRIGGER trigger_name BEFORE INSERT ON table_name FOR EACH ROW BEGIN ... END;</div>
+                    <div class="command-description">Execute statements before inserting row.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create AFTER INSERT Trigger</div>
+                    <div class="command-code">CREATE TRIGGER trigger_name AFTER INSERT ON table_name FOR EACH ROW BEGIN ... END;</div>
+                    <div class="command-description">Execute statements after inserting row.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create BEFORE UPDATE Trigger</div>
+                    <div class="command-code">CREATE TRIGGER trigger_name BEFORE UPDATE ON table_name FOR EACH ROW BEGIN ... END;</div>
+                    <div class="command-description">Execute statements before updating row.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create AFTER UPDATE Trigger</div>
+                    <div class="command-code">CREATE TRIGGER trigger_name AFTER UPDATE ON table_name FOR EACH ROW BEGIN ... END;</div>
+                    <div class="command-description">Execute statements after updating row.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create BEFORE DELETE Trigger</div>
+                    <div class="command-code">CREATE TRIGGER trigger_name BEFORE DELETE ON table_name FOR EACH ROW BEGIN ... END;</div>
+                    <div class="command-description">Execute statements before deleting row.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Create AFTER DELETE Trigger</div>
+                    <div class="command-code">CREATE TRIGGER trigger_name AFTER DELETE ON table_name FOR EACH ROW BEGIN ... END;</div>
+                    <div class="command-description">Execute statements after deleting row.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show All Triggers</div>
+                    <div class="command-code">SHOW TRIGGERS;</div>
+                    <div class="command-description">List all triggers in current database.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Triggers From Database</div>
+                    <div class="command-code">SHOW TRIGGERS FROM &lt;database_name&gt;;</div>
+                    <div class="command-description">List triggers in specified database.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Trigger Definition</div>
+                    <div class="command-code">SHOW CREATE TRIGGER &lt;trigger_name&gt;;</div>
+                    <div class="command-description">Display CREATE TRIGGER statement.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Drop Trigger</div>
+                    <div class="command-code">DROP TRIGGER &lt;trigger_name&gt;;</div>
+                    <div class="command-description">Delete trigger.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Drop Trigger If Exists</div>
+                    <div class="command-code">DROP TRIGGER IF EXISTS &lt;trigger_name&gt;;</div>
+                    <div class="command-description">Drop trigger only if it exists.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Transactions</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Start Transaction</div>
+                    <div class="command-code">START TRANSACTION;</div>
+                    <div class="command-description">Begin transaction for grouped operations.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Commit Transaction</div>
+                    <div class="command-code">COMMIT;</div>
+                    <div class="command-description">Save all changes made in transaction permanently.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Rollback Transaction</div>
+                    <div class="command-code">ROLLBACK;</div>
+                    <div class="command-description">Undo all changes made in transaction.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Set Savepoint</div>
+                    <div class="command-code">SAVEPOINT &lt;savepoint_name&gt;;</div>
+                    <div class="command-description">Create point in transaction to rollback to later.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Rollback To Savepoint</div>
+                    <div class="command-code">ROLLBACK TO SAVEPOINT &lt;savepoint_name&gt;;</div>
+                    <div class="command-description">Undo changes back to specified savepoint.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Release Savepoint</div>
+                    <div class="command-code">RELEASE SAVEPOINT &lt;savepoint_name&gt;;</div>
+                    <div class="command-description">Remove savepoint from transaction.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Set Autocommit Off</div>
+                    <div class="command-code">SET autocommit = 0;</div>
+                    <div class="command-description">Disable automatic transaction commits.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Set Autocommit On</div>
+                    <div class="command-code">SET autocommit = 1;</div>
+                    <div class="command-description">Enable automatic transaction commits.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Autocommit Status</div>
+                    <div class="command-code">SELECT @@autocommit;</div>
+                    <div class="command-description">Check if autocommit is enabled or disabled.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">User Management And Permissions</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">User Management</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Show All Users</div>
+                        <div class="command-code">SELECT User, Host FROM mysql.user;</div>
+                        <div class="command-description">List all users and their hosts in MySQL server.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Show Current User</div>
+                        <div class="command-code">SELECT USER();</div>
+                        <div class="command-description">Display current logged-in user.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create User</div>
+                        <div class="command-code">CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';</div>
+                        <div class="command-description">Create new user with password.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create User For Any Host</div>
+                        <div class="command-code">CREATE USER 'username'@'%' IDENTIFIED BY 'password';</div>
+                        <div class="command-description">Create user accessible from any host.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Create User If Not Exists</div>
+                        <div class="command-code">CREATE USER IF NOT EXISTS 'username'@'localhost' IDENTIFIED BY 'password';</div>
+                        <div class="command-description">Create user only if doesn't already exist.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Rename User</div>
+                        <div class="command-code">RENAME USER 'old_username'@'localhost' TO 'new_username'@'localhost';</div>
+                        <div class="command-description">Change username.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Change User Password</div>
+                        <div class="command-code">ALTER USER 'username'@'localhost' IDENTIFIED BY 'new_password';</div>
+                        <div class="command-description">Update user password.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Set Password</div>
+                        <div class="command-code">SET PASSWORD FOR 'username'@'localhost' = PASSWORD('new_password');</div>
+                        <div class="command-description">Alternative method to change password.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Drop User</div>
+                        <div class="command-code">DROP USER 'username'@'localhost';</div>
+                        <div class="command-description">Delete user account.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Drop User If Exists</div>
+                        <div class="command-code">DROP USER IF EXISTS 'username'@'localhost';</div>
+                        <div class="command-description">Drop user only if exists.</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Permissions And Privileges</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Show User Privileges</div>
+                        <div class="command-code">SHOW GRANTS FOR 'username'@'localhost';</div>
+                        <div class="command-description">Display all privileges granted to user.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Show Current User Privileges</div>
+                        <div class="command-code">SHOW GRANTS;</div>
+                        <div class="command-description">Display privileges of current user.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant All Privileges On Database</div>
+                        <div class="command-code">GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Grant all permissions on specific database.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant All On All Databases</div>
+                        <div class="command-code">GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Grant all permissions on all databases (admin level).</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant Specific Privileges</div>
+                        <div class="command-code">GRANT SELECT, INSERT, UPDATE ON database_name.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Grant specific privileges (SELECT, INSERT, UPDATE, DELETE, etc).</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant On Specific Table</div>
+                        <div class="command-code">GRANT SELECT ON database_name.table_name TO 'username'@'localhost';</div>
+                        <div class="command-description">Grant permission on single table only.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant With Grant Option</div>
+                        <div class="command-code">GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost' WITH GRANT OPTION;</div>
+                        <div class="command-description">Grant privileges and ability to grant to others.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant CREATE Privilege</div>
+                        <div class="command-code">GRANT CREATE ON database_name.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow creating tables and databases.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant DROP Privilege</div>
+                        <div class="command-code">GRANT DROP ON database_name.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow dropping tables and databases.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant DELETE Privilege</div>
+                        <div class="command-code">GRANT DELETE ON database_name.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow deleting rows from tables.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant EXECUTE Privilege</div>
+                        <div class="command-code">GRANT EXECUTE ON database_name.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow executing stored procedures.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Revoke Privileges</div>
+                        <div class="command-code">REVOKE ALL PRIVILEGES ON database_name.* FROM 'username'@'localhost';</div>
+                        <div class="command-description">Remove all privileges from user.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Revoke Specific Privilege</div>
+                        <div class="command-code">REVOKE INSERT ON database_name.* FROM 'username'@'localhost';</div>
+                        <div class="command-description">Remove specific privilege from user.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Flush Privileges</div>
+                        <div class="command-code">FLUSH PRIVILEGES;</div>
+                        <div class="command-description">Reload privilege tables to apply changes immediately.</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Admin Privileges</div>
+                    
+                    <div class="command-block">
+                        <div class="command-name">Grant SUPER Privilege</div>
+                        <div class="command-code">GRANT SUPER ON *.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Grant super user privileges.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant RELOAD Privilege</div>
+                        <div class="command-code">GRANT RELOAD ON *.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow reloading server configuration.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant PROCESS Privilege</div>
+                        <div class="command-code">GRANT PROCESS ON *.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow viewing running processes.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant SHUTDOWN Privilege</div>
+                        <div class="command-code">GRANT SHUTDOWN ON *.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow shutting down server.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant REPLICATION CLIENT</div>
+                        <div class="command-code">GRANT REPLICATION CLIENT ON *.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow checking replication status.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant REPLICATION SLAVE</div>
+                        <div class="command-code">GRANT REPLICATION SLAVE ON *.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow configuring as replication slave.</div>
+                    </div>
+
+                    <div class="command-block">
+                        <div class="command-name">Grant CREATE USER Privilege</div>
+                        <div class="command-code">GRANT CREATE USER ON *.* TO 'username'@'localhost';</div>
+                        <div class="command-description">Allow creating and managing users.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">String Functions</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Concatenate Strings</div>
+                    <div class="command-code">SELECT CONCAT(col1, ' ', col2) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Combine multiple columns or strings into one.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Convert To Uppercase</div>
+                    <div class="command-code">SELECT UPPER(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Convert string to uppercase.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Convert To Lowercase</div>
+                    <div class="command-code">SELECT LOWER(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Convert string to lowercase.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Get Substring</div>
+                    <div class="command-code">SELECT SUBSTRING(&lt;column&gt;, 1, 5) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Extract substring starting at position 1, length 5.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Get String Length</div>
+                    <div class="command-code">SELECT LENGTH(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Get length of string in characters.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Trim Whitespace</div>
+                    <div class="command-code">SELECT TRIM(&lt;column&gt;) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Remove leading and trailing whitespace.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Replace Text</div>
+                    <div class="command-code">SELECT REPLACE(&lt;column&gt;, 'old', 'new') FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Replace substring with another string.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Left Characters</div>
+                    <div class="command-code">SELECT LEFT(&lt;column&gt;, 3) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Extract first 3 characters from left.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Right Characters</div>
+                    <div class="command-code">SELECT RIGHT(&lt;column&gt;, 3) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Extract last 3 characters from right.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Date And Time Functions</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Current Timestamp</div>
+                    <div class="command-code">SELECT NOW();</div>
+                    <div class="command-description">Get current date and time.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Current Date</div>
+                    <div class="command-code">SELECT CURDATE();</div>
+                    <div class="command-description">Get current date.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Current Time</div>
+                    <div class="command-code">SELECT CURTIME();</div>
+                    <div class="command-description">Get current time.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Date Format</div>
+                    <div class="command-code">SELECT DATE_FORMAT(date_column, '%Y-%m-%d') FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Format date in specified pattern.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Add Days</div>
+                    <div class="command-code">SELECT DATE_ADD(date_column, INTERVAL 7 DAY) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Add 7 days to date.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Subtract Days</div>
+                    <div class="command-code">SELECT DATE_SUB(date_column, INTERVAL 7 DAY) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Subtract 7 days from date.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Date Difference</div>
+                    <div class="command-code">SELECT DATEDIFF(date1, date2) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Calculate days difference between two dates.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Extract Year</div>
+                    <div class="command-code">SELECT YEAR(date_column) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Extract year from date.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Extract Month</div>
+                    <div class="command-code">SELECT MONTH(date_column) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Extract month number from date.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Extract Day</div>
+                    <div class="command-code">SELECT DAY(date_column) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Extract day number from date.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Math Functions</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Round Number</div>
+                    <div class="command-code">SELECT ROUND(column, 2) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Round number to 2 decimal places.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Ceiling</div>
+                    <div class="command-code">SELECT CEIL(column) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Round up to nearest integer.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Floor</div>
+                    <div class="command-code">SELECT FLOOR(column) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Round down to nearest integer.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Absolute Value</div>
+                    <div class="command-code">SELECT ABS(column) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Get absolute value (removes negative sign).</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Power</div>
+                    <div class="command-code">SELECT POW(column, 2) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Raise to power (square, cube, etc).</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Square Root</div>
+                    <div class="command-code">SELECT SQRT(column) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Calculate square root.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Random Number</div>
+                    <div class="command-code">SELECT RAND();</div>
+                    <div class="command-description">Generate random decimal between 0 and 1.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Conditional Statements</div>
+                
+                <div class="command-block">
+                    <div class="command-name">IF Statement</div>
+                    <div class="command-code">SELECT IF(condition, true_value, false_value) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Return different value based on condition.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">CASE Statement</div>
+                    <div class="command-code">SELECT CASE WHEN condition1 THEN result1 WHEN condition2 THEN result2 ELSE result3 END FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Multiple conditions with different results.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">IFNULL</div>
+                    <div class="command-code">SELECT IFNULL(column, 'default_value') FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Return default value if column is NULL.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">COALESCE</div>
+                    <div class="command-code">SELECT COALESCE(col1, col2, 'default') FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Return first non-NULL value from list.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">NULLIF</div>
+                    <div class="command-code">SELECT NULLIF(col1, col2) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Return NULL if two values are equal.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Subqueries And Advanced</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Subquery In WHERE</div>
+                    <div class="command-code">SELECT * FROM users WHERE id IN (SELECT user_id FROM orders WHERE total > 100);</div>
+                    <div class="command-description">Filter using result of another query.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Subquery In FROM</div>
+                    <div class="command-code">SELECT * FROM (SELECT * FROM users WHERE active = 1) AS active_users;</div>
+                    <div class="command-description">Use subquery result as virtual table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Subquery In SELECT</div>
+                    <div class="command-code">SELECT name, (SELECT COUNT(*) FROM orders WHERE user_id = users.id) AS order_count FROM users;</div>
+                    <div class="command-description">Include subquery result as column.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">EXISTS</div>
+                    <div class="command-code">SELECT * FROM users WHERE EXISTS (SELECT 1 FROM orders WHERE orders.user_id = users.id);</div>
+                    <div class="command-description">Check if subquery returns any rows.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">NOT EXISTS</div>
+                    <div class="command-code">SELECT * FROM users WHERE NOT EXISTS (SELECT 1 FROM orders WHERE orders.user_id = users.id);</div>
+                    <div class="command-description">Find rows where subquery returns no results.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">UNION (Distinct)</div>
+                    <div class="command-code">SELECT column FROM table1 UNION SELECT column FROM table2;</div>
+                    <div class="command-description">Combine results from two queries, removing duplicates.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">UNION ALL (With Duplicates)</div>
+                    <div class="command-code">SELECT column FROM table1 UNION ALL SELECT column FROM table2;</div>
+                    <div class="command-description">Combine results including duplicate rows.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Utility And Server Commands</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Show MySQL Version</div>
+                    <div class="command-code">SELECT VERSION();</div>
+                    <div class="command-description">Display MySQL server version.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Server Status</div>
+                    <div class="command-code">SHOW STATUS;</div>
+                    <div class="command-description">Display server status variables.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Server Variables</div>
+                    <div class="command-code">SHOW VARIABLES;</div>
+                    <div class="command-description">Display all server configuration variables.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Specific Variable</div>
+                    <div class="command-code">SHOW VARIABLES LIKE 'variable_name';</div>
+                    <div class="command-description">Display specific server variable.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Process List</div>
+                    <div class="command-code">SHOW PROCESSLIST;</div>
+                    <div class="command-description">List running processes on server.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Full Process List</div>
+                    <div class="command-code">SHOW FULL PROCESSLIST;</div>
+                    <div class="command-description">List running processes with full query text.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Kill A Process</div>
+                    <div class="command-code">KILL &lt;process_id&gt;;</div>
+                    <div class="command-description">Terminate specific running process.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Engines</div>
+                    <div class="command-code">SHOW ENGINES;</div>
+                    <div class="command-description">List available storage engines.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Character Sets</div>
+                    <div class="command-code">SHOW CHARACTER SET;</div>
+                    <div class="command-description">List supported character sets.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Collations</div>
+                    <div class="command-code">SHOW COLLATION;</div>
+                    <div class="command-description">List available collations.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Warnings</div>
+                    <div class="command-code">SHOW WARNINGS;</div>
+                    <div class="command-description">Display warnings from last query.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Errors</div>
+                    <div class="command-code">SHOW ERRORS;</div>
+                    <div class="command-description">Display errors from last query.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Table Maintenance And Optimization</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Show Table Size</div>
+                    <div class="command-code">SELECT table_name, ROUND(((data_length + index_length) / 1024 / 1024), 2) AS 'Size (MB)' FROM information_schema.TABLES WHERE table_schema = 'database_name';</div>
+                    <div class="command-description">Calculate size of all tables in database.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Row Count</div>
+                    <div class="command-code">SELECT COUNT(*) FROM &lt;table_name&gt;;</div>
+                    <div class="command-description">Get number of rows in table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Analyze Table</div>
+                    <div class="command-code">ANALYZE TABLE &lt;table_name&gt;;</div>
+                    <div class="command-description">Update table statistics for query optimizer.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Optimize Table</div>
+                    <div class="command-code">OPTIMIZE TABLE &lt;table_name&gt;;</div>
+                    <div class="command-description">Defragment table and reclaim space.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Repair Table</div>
+                    <div class="command-code">REPAIR TABLE &lt;table_name&gt;;</div>
+                    <div class="command-description">Fix corrupted table.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Check Table</div>
+                    <div class="command-code">CHECK TABLE &lt;table_name&gt;;</div>
+                    <div class="command-description">Check table for errors.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Show Table Stats</div>
+                    <div class="command-code">SHOW TABLE STATUS LIKE 'table_name';</div>
+                    <div class="command-description">Display detailed table statistics.</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title">Backup And Restore (Command Line)</div>
+                
+                <div class="command-block">
+                    <div class="command-name">Backup Single Database</div>
+                    <div class="command-code">mysqldump -u username -p database_name > backup.sql</div>
+                    <div class="command-description">Export database to SQL file.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Backup All Databases</div>
+                    <div class="command-code">mysqldump -u username -p --all-databases > all_backup.sql</div>
+                    <div class="command-description">Export all databases to single file.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Backup Specific Tables</div>
+                    <div class="command-code">mysqldump -u username -p database_name table1 table2 > tables_backup.sql</div>
+                    <div class="command-description">Export specific tables only.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Backup Structure Only</div>
+                    <div class="command-code">mysqldump -u username -p --no-data database_name > structure.sql</div>
+                    <div class="command-description">Export only table structure without data.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Backup Data Only</div>
+                    <div class="command-code">mysqldump -u username -p --no-create-info database_name > data.sql</div>
+                    <div class="command-description">Export only data without table structure.</div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-name">Restore Database</div>
+                    <div class="command-code">mysql -u username -p database_name < backup.sql</div>
+                    <div class="command-description">Import database from backup file.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INDIVIDUAL SECTIONS - These will be populated by JavaScript showing only relevant content -->
+        <div id="database" class="sections-container"></div>
+        <div id="table" class="sections-container"></div>
+        <div id="select" class="sections-container"></div>
+        <div id="insert" class="sections-container"></div>
+        <div id="update" class="sections-container"></div>
+        <div id="delete" class="sections-container"></div>
+        <div id="filter" class="sections-container"></div>
+        <div id="joins" class="sections-container"></div>
+        <div id="aggregate" class="sections-container"></div>
+        <div id="index" class="sections-container"></div>
+        <div id="views" class="sections-container"></div>
+        <div id="procedures" class="sections-container"></div>
+        <div id="triggers" class="sections-container"></div>
+        <div id="transactions" class="sections-container"></div>
+        <div id="users" class="sections-container"></div>
+        <div id="functions" class="sections-container"></div>
+        <div id="advanced" class="sections-container"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>MySQL Commands Complete Professional Reference</p>
+        <p>Use this as your guide for interviews, production, and learning</p>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        function showSection(sectionId, event) {
+            if (event) event.preventDefault();
+
+            document.querySelectorAll('.sections-container').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active');
+            }
+
+            event.target.closest('.nav-btn').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('scrollTopBtn');
+            btn.classList.toggle('show', window.pageYOffset > 300);
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.command-block').forEach(block => {
+                const text = block.textContent.toLowerCase();
+                block.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

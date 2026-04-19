@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "email": "admin@files.com",
+    "password": "$2a$10$uyDEpchEFeiwpE0XhTtxgO/D.B/0WdC4RE6R0AaPfKMPYsRGydM/O",
+    "name": "Admin",
+    "createdAt": "2026-04-06T15:50:27.149Z"
+  },
+  {
+    "id": 2,
+    "email": "tonystark03042003@gmail.com",
+    "password": "$2a$10$oN.f2Qz6cvaWvXj7fz0N2Ov3DCk2RNFXutQoJuwi0TqSo5EQ93//G",
+    "name": "admin",
+    "createdAt": "2026-04-06T16:31:26.591Z"
+  },
+  {
+    "id": 3,
+    "email": "shree@gmail.com",
+    "password": "$2a$10$2/2if3pfj8aHIS1hLytOa.8HES5XPqt8.r2JQl7SZdnP/mcRega8e",
+    "name": "Shree",
+    "createdAt": "2026-04-07T04:12:08.360Z"
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "title": "DBMS",
+    "author": "Atharv Kulkarni",
+    "genre": "Science",
+    "year": 2026,
+    "createdAt": "2026-04-07T04:09:24.848Z",
+    "updatedAt": "2026-04-07T04:09:24.848Z"
+  }
+]
