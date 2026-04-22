@@ -44,7 +44,7 @@ public:
 
             for (int i = (MAX+1)/2; i < temp.size(); i++)
                 newLeaf->keys.push_back(temp[i]);
-
+                
             newLeaf->next = curr->next;
             curr->next = newLeaf;
         }
@@ -80,6 +80,7 @@ int main() {
     tree.insert(20);
     tree.insert(5);
     tree.insert(15);
+    tree.insert(25);
 
     cout << "Traversal: ";
     tree.traverse();

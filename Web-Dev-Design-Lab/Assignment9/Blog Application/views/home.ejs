@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Share Your <span class="gradient-text">Ideas</span> With The World</h1>
+    <p class="hero-subtitle">A modern blogging platform for writers, thinkers, and creators. Write, share, and connect.</p>
+    <% if (typeof currentUser === 'undefined' || !currentUser) { %>
+      <div class="hero-actions">
+        <a href="/signup" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="/login" class="btn btn-outline btn-lg">Log In</a>
+      </div>
+    <% } else { %>
+      <div class="hero-actions">
+        <a href="/posts/new" class="btn btn-primary btn-lg">Write a Post</a>
+      </div>
+    <% } %>
+  </div>
+  <div class="hero-glow"></div>
+</section>
+
+<!-- Blog Posts Grid -->
+<section class="posts-section">
+  <div class="section-header">
+    <h2 class="section-title">Latest Posts</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <% if (posts && posts.length > 0) { %>
+    <div class="posts-grid">
+      <% posts.forEach((post, index) => { %>
+        <article class="post-card" style="animation-delay: <%= index * 0.1 %>s">
+          <div class="post-card-accent"></div>
+          <div class="post-card-body">
+            <div class="post-card-meta">
+              <div class="post-author-badge">
+                <div class="avatar"><%= post.author.username.charAt(0).toUpperCase() %></div>
+                <span><%= post.author.username %></span>
+              </div>
+              <time class="post-date"><%= post.createdAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></time>
+            </div>
+            <h3 class="post-card-title"><%= post.title %></h3>
+            <p class="post-card-excerpt"><%= post.content.substring(0, 150) %><%= post.content.length > 150 ? '...' : '' %></p>
+            <a href="/posts/<%= post._id %>" class="post-card-link">
+              Read More
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <div class="empty-icon">📝</div>
+      <h3>No posts yet</h3>
+      <p>Be the first to share something amazing!</p>
+      <% if (typeof currentUser !== 'undefined' && currentUser) { %>
+        <a href="/posts/new" class="btn btn-primary">Write the First Post</a>
+      <% } else { %>
+        <a href="/signup" class="btn btn-primary">Sign Up to Write</a>
+      <% } %>
+    </div>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>
