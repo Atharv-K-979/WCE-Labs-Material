@@ -5,13 +5,15 @@
   --font-poppins: "Poppins", ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Tailwind v4 class-based dark mode — covers both .dark element AND all its children */
+@custom-variant dark (&:where(.dark, .dark *));
+
 html, body, #root {
   height: 100%;
 }
 
 body {
-  background-color: #f8fafc; /* slate-50 */
-  color: #0f172a; /* slate-900 */
+  @apply bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-300;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }

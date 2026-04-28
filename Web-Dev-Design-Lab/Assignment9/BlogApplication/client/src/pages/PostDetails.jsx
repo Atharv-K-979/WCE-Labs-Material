@@ -79,13 +79,13 @@ const PostDetails = () => {
     <article className="max-w-4xl mx-auto">
       <button 
         onClick={() => navigate(-1)}
-        className="flex items-center text-gray-500 hover:text-indigo-600 mb-6 transition-colors"
+        className="flex items-center text-gray-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 mb-6 transition-colors"
       >
         <ArrowLeft className="w-4 h-4 mr-1" />
         Back
       </button>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 overflow-hidden transition-colors">
         {post.imageUrl && (
           <img
             src={post.imageUrl}
@@ -96,8 +96,8 @@ const PostDetails = () => {
         
         <div className="p-8 md:p-12">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-            <div className="flex items-center text-sm text-gray-500">
-              <span className="font-medium text-gray-900 bg-gray-100 px-3 py-1 rounded-full">
+            <div className="flex items-center text-sm text-gray-500 dark:text-slate-400">
+              <span className="font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-slate-800 px-3 py-1 rounded-full">
                 {post.author?.name}
               </span>
               <span className="mx-3">•</span>
@@ -105,17 +105,17 @@ const PostDetails = () => {
             </div>
 
             {isAuthor && (
-              <div className="flex items-center space-x-2 border rounded-lg p-1 bg-gray-50">
+              <div className="flex items-center space-x-2 border dark:border-slate-700 rounded-lg p-1 bg-gray-50 dark:bg-slate-800/50">
                 <Link
                   to={`/edit-post/${post._id}`}
-                  className="p-2 text-gray-600 hover:text-indigo-600 hover:bg-white rounded-md transition-all"
+                  className="p-2 text-gray-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white dark:hover:bg-slate-800 rounded-md transition-all"
                   title="Edit post"
                 >
                   <Edit2 className="w-4 h-4" />
                 </Link>
                 <button
                   onClick={handleDelete}
-                  className="p-2 text-gray-600 hover:text-red-600 hover:bg-white rounded-md transition-all"
+                  className="p-2 text-gray-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-white dark:hover:bg-slate-800 rounded-md transition-all"
                   title="Delete post"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -124,22 +124,22 @@ const PostDetails = () => {
             )}
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">
             {post.title}
           </h1>
 
-          <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap">
+          <div className="prose prose-lg max-w-none text-gray-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
             {post.content}
           </div>
 
-          <div className="mt-12 pt-8 border-t border-gray-100 flex items-center">
+          <div className="mt-12 pt-8 border-t border-gray-100 dark:border-slate-800 flex items-center">
             <button
               onClick={handleLike}
               disabled={likeLoading}
               className={`flex items-center space-x-2 px-4 py-2 rounded-full border transition-all ${
                 hasLiked 
-                  ? 'bg-red-50 border-red-100 text-red-600' 
-                  : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+                  ? 'bg-red-50 dark:bg-red-900/20 border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400' 
+                  : 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700'
               }`}
             >
               <Heart className={`w-5 h-5 ${hasLiked ? 'fill-current' : ''}`} />
