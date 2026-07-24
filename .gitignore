@@ -36,3 +36,14 @@ coverage/
 # Temporary
 *.tmp
 .cache/
+
+
+# Ignore Jupyter temporary files
+Machine_Learning_Lab/.ipynb_checkpoints/
+
+# Ignore VS Code Jupyter files
+Machine_Learning_Lab/.virtual_documents/
+
+# Ignore Anaconda project metadata
+Machine_Learning_Lab/anaconda_projects/O
+
