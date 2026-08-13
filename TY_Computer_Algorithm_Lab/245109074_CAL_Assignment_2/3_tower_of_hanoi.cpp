@@ -8,9 +8,10 @@ void hanoi(int n,char from,char to,char aux){
     hanoi(n-1,aux,to,from);
 }
 int main(){
-    int n;
-    cout<<"enter number of disks: ";
-    cin>>n;
-    hanoi(n,'a','c','b');
+    int disks[]={1,2,3,4,5};
+    for(int i=0;i<5;i++){
+        cout<<"test case "<<i+1<<": "<<disks[i]<<" disks"<<endl;
+        hanoi(disks[i],'a','c','b');
+    }
     return 0;
 }
