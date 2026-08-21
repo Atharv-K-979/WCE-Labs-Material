@@ -29,3 +29,10 @@ int main(){
     cout<<"test case 5: minimum merge cost is "<<optimalMerge(allBranches)<<endl;
     return 0;
 }
+
+
+
+// Optimal Merge Pattern
+// O(n log n)
+// O(n log n)
+// O(n log n)

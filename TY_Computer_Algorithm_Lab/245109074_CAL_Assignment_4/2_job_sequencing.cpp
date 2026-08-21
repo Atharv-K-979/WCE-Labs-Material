@@ -37,3 +37,9 @@ int main(){
     cout<<"test case 5: maximum payout is "<<jobSequencing(test5,0)<<endl;
     return 0;
 }
+
+
+// Job Sequencing
+// O(n log n)
+// O(n²)
+// O(n²)

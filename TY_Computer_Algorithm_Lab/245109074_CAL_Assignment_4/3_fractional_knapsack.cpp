@@ -53,3 +53,9 @@ int main(){
     cout<<"test case 5: total value loaded is "<<knapsack(test5,0)<<endl;
     return 0;
 }
+
+
+// Fractional Knapsack
+// O(n log n)
+// O(n log n)
+// O(n log n)

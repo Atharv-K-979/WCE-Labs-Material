@@ -32,3 +32,8 @@ int main()
     cout << "test case 5: bags loaded is " << containerLoading(test5, 200) << endl;
     return 0;
 }
+
+// Container Loading
+// O(n log n)
+// O(n log n)
+// O(n log n)
