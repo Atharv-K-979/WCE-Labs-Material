@@ -5,14 +5,11 @@ using namespace std;
 
 void minNotes(vector<int> denom,int amount){
     sort(denom.rbegin(),denom.rend());
-
     vector<pair<int,int>> used;
     int totalNotes=0;
     int remaining=amount;
-
     for(int d:denom){
         if(remaining<=0) break;
-
         int count=remaining/d;
         if(count>0){
             used.push_back({d,count});
@@ -20,19 +17,15 @@ void minNotes(vector<int> denom,int amount){
             remaining-=d*count;
         }
     }
-
     cout<<"Amount: "<<amount<<endl;
-
     if(remaining!=0){
         cout<<"Cannot form the exact amount with the given denominations.\n";
         return;
     }
-
     cout<<"Notes used: ";
     for(auto &p:used)
         cout<<p.first<<"x"<<p.second<<" ";
     cout<<endl;
-
     cout<<"Total notes used: "<<totalNotes<<endl;
 }
 

@@ -7,10 +7,8 @@ void setCover(int totalSegments,vector<set<int>> channels){
     set<int> universe;
     for(int i=1;i<=totalSegments;i++)
         universe.insert(i);
-
     set<int> covered;
     vector<int> chosenChannels;
-
     while(covered.size()<universe.size()){
         int bestChannel=-1;
         int bestGain=0;

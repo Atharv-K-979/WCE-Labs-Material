@@ -47,7 +47,6 @@ void dijkstra(vector<string> name, vector<vector<pair<int,int>>> adj, int src, i
 }
 
 int main(){
-    // Test Case 1
     {
         vector<string> name={"S","A","B","C","D"};
         vector<vector<pair<int,int>>> adj(5);
@@ -58,8 +57,6 @@ int main(){
         cout<<" Test Case 1 \n";
         dijkstra(name,adj,0,4);
     }
-
-    // Test Case 2
     {
         vector<string> name={"S","A","B","C"};
         vector<vector<pair<int,int>>> adj(4);
@@ -69,8 +66,6 @@ int main(){
         cout<<"\n Test Case 2 \n";
         dijkstra(name,adj,0,3);
     }
-
-    // Test Case 3
     {
         vector<string> name={"S","A","B","C","D"};
         vector<vector<pair<int,int>>> adj(5);
@@ -81,8 +76,6 @@ int main(){
         cout<<"\n Test Case 3 \n";
         dijkstra(name,adj,0,4);
     }
-
-    // Test Case 4
     {
         vector<string> name={"S","A","B","C","D"};
         vector<vector<pair<int,int>>> adj(5);
@@ -93,8 +86,6 @@ int main(){
         cout<<"\n Test Case 4 \n";
         dijkstra(name,adj,0,4);
     }
-
-    // Test Case 5 - unreachable destination
     {
         vector<string> name={"S","A","B","C"};
         vector<vector<pair<int,int>>> adj(4);
@@ -103,6 +94,5 @@ int main(){
         cout<<"\n Test Case 5 \n";
         dijkstra(name,adj,0,3);
     }
-
     return 0;
 }
