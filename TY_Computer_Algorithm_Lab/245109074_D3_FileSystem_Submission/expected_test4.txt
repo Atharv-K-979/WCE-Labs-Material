@@ -1,0 +1,9 @@
+LCS Length = 2
+LCS:
+Same para
+Same para
+
+Track Changes:
+UNCHANGED: Same para
+UNCHANGED: Same para
+REMOVED: Different para

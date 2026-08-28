@@ -1,0 +1,13 @@
+LCS Length = 3
+LCS:
+Introduction
+Methodology
+Conclusion
+
+Track Changes:
+UNCHANGED: Introduction
+REMOVED: Background of the study
+ADDED: Updated background section
+UNCHANGED: Methodology
+ADDED: Results and Discussion
+UNCHANGED: Conclusion

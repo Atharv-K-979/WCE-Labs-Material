@@ -1,0 +1,7 @@
+Three-Way Merge / Conflict Detection:
+MERGED: A
+CONFLICT:
+  BASE: Original paragraph
+  V1:   Paragraph modified by Alice
+  V2:   Paragraph modified by Bob
+MERGED: C

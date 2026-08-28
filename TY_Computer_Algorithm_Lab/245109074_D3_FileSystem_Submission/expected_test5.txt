@@ -1,0 +1,12 @@
+LCS Length = 3
+LCS:
+A
+C
+D
+
+Track Changes:
+ADDED: X
+UNCHANGED: A
+REMOVED: B
+UNCHANGED: C
+UNCHANGED: D
