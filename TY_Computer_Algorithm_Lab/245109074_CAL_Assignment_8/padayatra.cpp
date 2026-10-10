@@ -79,46 +79,46 @@ ll solve(istream&in){
 
 
 // CHP JUDGE MAIN
-// int main(){
-//     ios::sync_with_stdio(false);
-//     cin.tie(nullptr);
-
-//     cout<<solve(cin)<<'\n';
-
-//     return 0;
-// }
-
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    ifstream fin("testcases.txt");
-    ofstream fout("output.txt");
-
-    if(!fin){
-        cerr<<"Error: testcases.txt not found\n";
-        return 1;
-    }
-
-    if(!fout){
-        cerr<<"Error: output.txt could not be created\n";
-        return 1;
-    }
-
-    int T;
-    fin>>T;
-
-    for(int tc=1;tc<=T;++tc){
-        fout<<solve(fin)<<'\n';
-    }
-
-    fin.close();
-    fout.close();
-
-    cout<<"Processed "<<T<<" test cases. Results written to output.txt\n";
+    cout<<solve(cin)<<'\n';
 
     return 0;
 }
+
+// int main(){
+//     ios::sync_with_stdio(false);
+//     cin.tie(nullptr);
+
+//     ifstream fin("testcases.txt");
+//     ofstream fout("output.txt");
+
+//     if(!fin){
+//         cerr<<"Error: testcases.txt not found\n";
+//         return 1;
+//     }
+
+//     if(!fout){
+//         cerr<<"Error: output.txt could not be created\n";
+//         return 1;
+//     }
+
+//     int T;
+//     fin>>T;
+
+//     for(int tc=1;tc<=T;++tc){
+//         fout<<solve(fin)<<'\n';
+//     }
+
+//     fin.close();
+//     fout.close();
+
+//     cout<<"Processed "<<T<<" test cases. Results written to output.txt\n";
+
+//     return 0;
+// }
 
 
 
